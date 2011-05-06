@@ -5,7 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace phantom
+namespace Phantom
 {
 	class Game : GameWindow
 	{
@@ -84,6 +84,7 @@ namespace phantom
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
+    [STAThread]
 		public static void Main (string[] args)
 		{
 			using (Game game = new Game())
