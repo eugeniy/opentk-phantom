@@ -1,20 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phantom", "Source/Phantom.csproj", "{989E0A90-36BF-4E30-B855-5E4F76502A7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phantom", "Source\Phantom.csproj", "{989E0A90-36BF-4E30-B855-5E4F76502A7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{05C8CC80-D4BD-412D-9403-822EE723316A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Debug|x86.Build.0 = Debug|Any CPU
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Release|x86.ActiveCfg = Release|Any CPU
+		{05C8CC80-D4BD-412D-9403-822EE723316A}.Release|x86.Build.0 = Release|Any CPU
 		{989E0A90-36BF-4E30-B855-5E4F76502A7C}.Debug|x86.ActiveCfg = Debug|x86
 		{989E0A90-36BF-4E30-B855-5E4F76502A7C}.Debug|x86.Build.0 = Debug|x86
 		{989E0A90-36BF-4E30-B855-5E4F76502A7C}.Release|x86.ActiveCfg = Release|x86
 		{989E0A90-36BF-4E30-B855-5E4F76502A7C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Source/Phantom.csproj
+		StartupItem = Source\Phantom.csproj
 	EndGlobalSection
 EndGlobal

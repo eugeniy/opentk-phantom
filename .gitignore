@@ -3,6 +3,7 @@
 *.pidb
 *.userprefs
 Binaries
+test-results
 bin
 obj
 .DS_Store
