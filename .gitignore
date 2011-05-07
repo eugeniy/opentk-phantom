@@ -1,5 +1,7 @@
 *.exe
 *.suo
+*.pidb
+*.userprefs
 bin
 obj
 
