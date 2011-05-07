@@ -8,7 +8,6 @@ namespace Phantom
 	public class Camera
 	{
         protected Vector3 m_position = new Vector3(0, 10, 30);
-        protected Vector3 m_target = Vector3.Zero;
         protected Vector3 m_up = Vector3.UnitY;
         protected Vector3 m_direction;
 
@@ -18,12 +17,7 @@ namespace Phantom
         protected const float m_speed = 0.25f;
         protected const float m_mouseSpeedX = 0.25f;
         protected const float m_mouseSpeedY = 0.15f;
-        protected float m_rotationSpeed = 0.025f;
-        protected const int m_edgeSize = 20;
 
-        protected int m_windowWidth;
-        protected int m_windowHeight;
-        protected float m_aspectRatio;
         protected MouseState m_prevMouse;
 		
 		
@@ -32,16 +26,12 @@ namespace Phantom
         /// </summary>
 		public Camera (Game game)
 		{
-            m_windowWidth = game.Bounds.Width;
-            m_windowHeight = game.Bounds.Height;
-            m_aspectRatio = (float)m_windowWidth / (float)m_windowHeight;
-
             // Create the direction vector and normalize it since it will be used for movement
-            m_direction = m_target - m_position;
+            m_direction = Vector3.Zero - m_position;
             m_direction.Normalize();
 
             // Create default camera matrices
-            Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
+            Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.Width / (float)game.Height, 0.01f, 1000);
             View = CreateLookAt();
 		}
 		
@@ -54,8 +44,7 @@ namespace Phantom
         public Camera(Game game, Vector3 position, Vector3 target) : this(game)
         {
             m_position = position;
-            m_target = target;
-            m_direction = m_target - m_position;
+            m_direction = target - m_position;
             m_direction.Normalize();
 
             View = CreateLookAt();
@@ -107,7 +96,7 @@ namespace Phantom
                 m_pitch += angle;
             }
 
-            //m_prevMouse = mouse;
+            m_prevMouse = mouse;
         }
 		
 		
@@ -120,23 +109,37 @@ namespace Phantom
             ProcessInput();
 
             View = CreateLookAt();
-
         }
 		
 		
         /// <summary>
-        /// Create a view matrix using camera vectors.
+        /// Create a view (modelview) matrix using camera vectors.
         /// </summary>
         protected Matrix4 CreateLookAt()
         {
             return Matrix4.LookAt(m_position, m_position + m_direction, m_up);
         }
 		
+		
+		/// <summary>
+		/// Position vector accessor.
+		/// </summary>
+		public Vector3 Position {
+			get { return m_position; }
+			protected set { m_position = value; }
+		}
+		
+		/// <summary>
+		/// Target vector accessor.
+		/// </summary>
+		public Vector3 Target {
+			get { return m_position + m_direction; }
+		}
+		
         /// <summary>
-        /// View matrix accessor.
+        /// View (modelview) matrix accessor.
         /// </summary>
         public Matrix4 View { get; protected set; }
-
 
         /// <summary>
         /// Projection matrix accessor.

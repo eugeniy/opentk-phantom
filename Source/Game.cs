@@ -9,12 +9,16 @@ namespace Phantom
 {
 	public class Game : GameWindow
 	{
+		Camera camera;
+		
 		/// <summary>
 		/// Create a new game window with the specified title.
 		/// </summary>
-        public Game() : base(800, 600, GraphicsMode.Default, "koteako phantom")
+        public Game() : base(800, 600, GraphicsMode.Default)
         {
             VSync = VSyncMode.On;
+			CursorVisible = false;
+			Title = "Phantom Engine";
         }
 
         /// <summary>Load resources here.</summary>
@@ -22,9 +26,14 @@ namespace Phantom
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+			
+			camera = new Camera(this);
 
-            GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
+            GL.ClearColor(Color4.SlateGray);
             GL.Enable(EnableCap.DepthTest);
+			
+			GL.Enable(EnableCap.Multisample);			
+			GL.Enable(EnableCap.SampleAlphaToCoverage);
         }
 
         /// <summary>
@@ -39,8 +48,8 @@ namespace Phantom
 
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 64.0f);
-            GL.MatrixMode(MatrixMode.Projection);
+            var projection = camera.Projection;
+			GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref projection);
         }
 
@@ -54,6 +63,8 @@ namespace Phantom
 
             if (Keyboard[Key.Escape])
                 Exit();
+			
+			camera.Update();
         }
 
         /// <summary>
@@ -66,7 +77,7 @@ namespace Phantom
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
+			Matrix4 modelview = camera.View;
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref modelview);
 
@@ -84,7 +95,7 @@ namespace Phantom
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-    [STAThread]
+    	[STAThread]
 		public static void Main (string[] args)
 		{
 			using (Game game = new Game())

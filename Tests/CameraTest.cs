@@ -2,12 +2,12 @@ using System;
 
 using NUnit.Framework;
 
-namespace Application
+namespace Tests
 {
-	[TestFixture()]
+	[TestFixture]
 	public class CameraTest
 	{
-		[Test()]
+		[Test]
 		public void TestCase ()
 		{
 		}
