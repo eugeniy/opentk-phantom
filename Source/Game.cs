@@ -14,7 +14,7 @@ namespace Phantom
 		/// <summary>
 		/// Create a new game window with the specified title.
 		/// </summary>
-        public Game() : base(960, 640, GraphicsMode.Default)
+        public Game() : base(960, 640, new GraphicsMode(DisplayDevice.Default.BitsPerPixel, 16, 0, 4))
         {
             VSync = VSyncMode.On;
 			CursorVisible = false;
@@ -31,9 +31,6 @@ namespace Phantom
 
             GL.ClearColor(Color4.SlateGray);
             GL.Enable(EnableCap.DepthTest);
-			
-			GL.Enable(EnableCap.Multisample);			
-			GL.Enable(EnableCap.SampleAlphaToCoverage);
         }
 
         /// <summary>
