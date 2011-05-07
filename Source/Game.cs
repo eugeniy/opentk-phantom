@@ -14,7 +14,7 @@ namespace Phantom
 		/// <summary>
 		/// Create a new game window with the specified title.
 		/// </summary>
-        public Game() : base(800, 600, GraphicsMode.Default)
+        public Game() : base(960, 640, GraphicsMode.Default)
         {
             VSync = VSyncMode.On;
 			CursorVisible = false;
@@ -100,7 +100,7 @@ namespace Phantom
 		{
 			using (Game game = new Game())
             {
-                game.Run(30.0);
+                game.Run(60.0);
             }
 		}
 	}

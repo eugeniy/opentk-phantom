@@ -5,27 +5,27 @@ using OpenTK.Input;
 
 namespace Phantom
 {
-	public class Camera
-	{
+    public class Camera
+    {
         protected Vector3 m_position = new Vector3(0, 10, 30);
         protected Vector3 m_up = Vector3.UnitY;
         protected Vector3 m_direction;
 
         protected float m_pitch = 0;
         protected float m_pitchLimit = MathHelper.DegreesToRadians(80);
-        
+
         protected const float m_speed = 0.25f;
         protected const float m_mouseSpeedX = 0.25f;
         protected const float m_mouseSpeedY = 0.15f;
 
         protected MouseState m_prevMouse;
-		
-		
+
+
         /// <summary>
         /// Creates the instance of the camera.
         /// </summary>
-		public Camera (Game game)
-		{
+        public Camera (Game game)
+        {
             // Create the direction vector and normalize it since it will be used for movement
             m_direction = Vector3.Zero - m_position;
             m_direction.Normalize();
@@ -33,9 +33,9 @@ namespace Phantom
             // Create default camera matrices
             Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.Width / (float)game.Height, 0.01f, 1000);
             View = CreateLookAt();
-		}
-		
-		
+        }
+
+
         /// <summary>
         /// Creates the instance of the camera at the given location.
         /// </summary>
@@ -49,8 +49,8 @@ namespace Phantom
 
             View = CreateLookAt();
         }
-		
-		
+
+
         /// <summary>
         /// Handle the camera movement using user input.
         /// </summary>
@@ -77,7 +77,7 @@ namespace Phantom
             if (keyboard.IsKeyDown(Key.Space))
                 m_position += m_up * m_speed;
 
-            if (keyboard.IsKeyDown(Key.ControlLeft) || keyboard.IsKeyDown(Key.C))
+            if (keyboard.IsKeyDown(Key.ControlLeft) || keyboard.IsKeyDown(Key.X))
                 m_position -= m_up * m_speed;
 
 
@@ -98,8 +98,8 @@ namespace Phantom
 
             m_prevMouse = mouse;
         }
-		
-		
+
+
         /// <summary>
         /// Allows the game component to update itself.
         /// </summary>
@@ -110,8 +110,8 @@ namespace Phantom
 
             View = CreateLookAt();
         }
-		
-		
+
+
         /// <summary>
         /// Create a view (modelview) matrix using camera vectors.
         /// </summary>
@@ -119,23 +119,25 @@ namespace Phantom
         {
             return Matrix4.LookAt(m_position, m_position + m_direction, m_up);
         }
-		
-		
-		/// <summary>
-		/// Position vector accessor.
-		/// </summary>
-		public Vector3 Position {
-			get { return m_position; }
-			protected set { m_position = value; }
-		}
-		
-		/// <summary>
-		/// Target vector accessor.
-		/// </summary>
-		public Vector3 Target {
-			get { return m_position + m_direction; }
-		}
-		
+
+
+        /// <summary>
+        /// Position vector accessor.
+        /// </summary>
+        public Vector3 Position
+        {
+            get { return m_position; }
+            protected set { m_position = value; }
+        }
+
+        /// <summary>
+        /// Target vector accessor.
+        /// </summary>
+        public Vector3 Target
+        {
+            get { return m_position + m_direction; }
+        }
+
         /// <summary>
         /// View (modelview) matrix accessor.
         /// </summary>
@@ -145,6 +147,6 @@ namespace Phantom
         /// Projection matrix accessor.
         /// </summary>
         public Matrix4 Projection { get; protected set; }
-		
-	}
+
+    }
 }
