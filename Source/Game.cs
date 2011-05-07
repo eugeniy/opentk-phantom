@@ -9,7 +9,7 @@ namespace Phantom
 {
 	public class Game : GameWindow
 	{
-		//Camera camera;
+		Camera camera;
 		Statistics stats;
 		
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Phantom
         {
             base.OnLoad(e);
 			
-			//camera = new Camera(this);
+			camera = new Camera(this);
 			stats = new Statistics(this);
 			System.Console.WriteLine(stats.ToString());
 			
@@ -49,9 +49,9 @@ namespace Phantom
 
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-            //var projection = camera.Projection;
-			//GL.MatrixMode(MatrixMode.Projection);
-            //GL.LoadMatrix(ref projection);
+            var projection = camera.Projection;
+			GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref projection);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Phantom
 			if (Keyboard[Key.F11])
                 WindowState = WindowState.Fullscreen;
 			
-			//camera.Update();
+			camera.Update();
 			stats.Update(e);
         }
 
@@ -84,7 +84,7 @@ namespace Phantom
 			
 			stats.Draw(e);
 
-			/*Matrix4 modelview = camera.View;
+			Matrix4 modelview = camera.View;
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref modelview);
 
@@ -94,7 +94,7 @@ namespace Phantom
             GL.Color3(1.0f, 0.0f, 0.0f); GL.Vertex3(1.0f, -1.0f, 4.0f);
             GL.Color3(0.2f, 0.9f, 1.0f); GL.Vertex3(0.0f, 1.0f, 4.0f);
 
-            GL.End();*/
+            GL.End();
 			
 			
 

@@ -69,7 +69,7 @@ namespace Phantom
                     
                     System.Console.WriteLine(string.Format("{0}/{1}", m_textBitmap.Width, m_textBitmap.Height));
                     
-                    graphics.Clear(Color.Black);
+                    graphics.Clear(Color.Transparent);
                     //graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
                     graphics.DrawString(fps, m_textFont, m_textBrush, m_textPosition.X, m_textPosition.Y);
                 }
