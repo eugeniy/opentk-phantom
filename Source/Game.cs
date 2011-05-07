@@ -7,7 +7,7 @@ using OpenTK.Input;
 
 namespace Phantom
 {
-	class Game : GameWindow
+	public class Game : GameWindow
 	{
 		/// <summary>
 		/// Create a new game window with the specified title.

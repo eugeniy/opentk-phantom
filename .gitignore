@@ -2,6 +2,8 @@
 *.suo
 *.pidb
 *.userprefs
+Binaries
 bin
 obj
+.DS_Store
 
