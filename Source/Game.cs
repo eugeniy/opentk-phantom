@@ -60,6 +60,9 @@ namespace Phantom
 
             if (Keyboard[Key.Escape])
                 Exit();
+
+			if (Keyboard[Key.F11])
+                WindowState = WindowState.Fullscreen;
 			
 			camera.Update();
         }
