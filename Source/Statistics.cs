@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using OpenTK;
@@ -8,11 +9,13 @@ namespace Phantom
 {
     public class Statistics
     {
+        protected Dictionary<string, string> m_statistics;
+
         protected int m_textTexture;
         protected Bitmap m_textBitmap;
         protected Font m_textFont;
         protected SolidBrush m_textBrush;
-        protected Vector2 m_textPosition = Vector2.One;
+        protected Vector2 m_textPosition = new Vector2(20, 15);
         
         protected int m_frameRate = 0;
         protected int m_frameCounter = 0;
@@ -20,8 +23,12 @@ namespace Phantom
         
         public Statistics (Game game)
         {
+            // By default, this class only sets the frames per second statistic
+            m_statistics = new Dictionary<string, string>();
+            m_statistics["FPS"] = "0";
+
             // Load the font to be used for drawing text
-            m_textFont = new Font(FontFamily.GenericSansSerif, 16);
+            m_textFont = new Font(FontFamily.GenericSansSerif, 10);
             m_textBrush = new SolidBrush(Color.White);
             
             // Create a bitmap to store the text
@@ -61,10 +68,20 @@ namespace Phantom
                 // Render text using System.Drawing
                 using (Graphics graphics = Graphics.FromImage(m_textBitmap))
                 {
-                    string fps = string.Format("fps: {0}", m_frameRate);
+                    m_statistics["FPS"] = m_frameRate.ToString();
                     
                     graphics.Clear(Color.Transparent);
-                    graphics.DrawString(fps, m_textFont, m_textBrush, m_textPosition.X, m_textPosition.Y);
+
+                    // Enumerate over all statistics and draw them
+                    int line = 0;
+                    foreach (KeyValuePair<string, string> stat in m_statistics)
+                    {
+                        graphics.DrawString(string.Format("{0}: {1}", stat.Key, stat.Value),
+                            m_textFont, m_textBrush, m_textPosition.X, m_textPosition.Y + m_textFont.GetHeight() * line);
+                        line++;
+                    }
+
+                    
                 }
                 
                 // Upload the bitmap to OpenGL
@@ -126,6 +143,17 @@ namespace Phantom
             GL.Disable(EnableCap.Blend);
             GL.Disable(EnableCap.Texture2D);
         }
-        
+
+
+        /// <summary>
+        /// Access the dictionary used to display statistics.
+        /// </summary>
+        /// <param name="key">The key of the statistic to display.</param>
+        /// <returns>Description and values displayed for the statistic.</returns>
+        public string this [string key]
+        {
+            get { return m_statistics[key]; }
+            set { m_statistics[key] = value; }
+        }
     }
 }

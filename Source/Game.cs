@@ -68,7 +68,11 @@ namespace Phantom
                 WindowState = WindowState.Fullscreen;
 			
 			camera.Update();
+
 			stats.Update(e);
+            stats["Position"] = camera.Position.ToString();
+            stats["Yaw"] = MathHelper.RadiansToDegrees(camera.Yaw).ToString();
+            stats["Pitch"] = MathHelper.RadiansToDegrees(camera.Pitch).ToString();
         }
 
         /// <summary>
