@@ -21,7 +21,7 @@ namespace Phantom
         protected int m_frameCounter = 0;
         protected TimeSpan m_elapsedTime = TimeSpan.Zero;
         
-        public Statistics (Game game)
+        public Statistics(Game game)
         {
             // By default, this class only sets the frames per second statistic
             m_statistics = new Dictionary<string, string>();

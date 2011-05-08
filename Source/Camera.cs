@@ -23,7 +23,7 @@ namespace Phantom
         /// <summary>
         /// Creates the instance of the camera.
         /// </summary>
-        public Camera (Game game)
+        public Camera(Game game)
         {
             // Create the direction vector and normalize it since it will be used for movement
             m_direction = Vector3.Zero - m_position;
