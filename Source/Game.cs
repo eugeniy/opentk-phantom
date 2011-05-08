@@ -30,7 +30,6 @@ namespace Phantom
 			
 			camera = new Camera(this);
 			stats = new Statistics(this);
-			System.Console.WriteLine(stats.ToString());
 			
 
             GL.ClearColor(Color4.SlateGray);
@@ -82,11 +81,18 @@ namespace Phantom
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			
-			stats.Draw(e);
+
+
+
+            GL.MatrixMode(MatrixMode.Modelview);
 
 			Matrix4 modelview = camera.View;
-            GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref modelview);
+
+
+
+
+
 
             GL.Begin(BeginMode.Triangles);
 
@@ -95,6 +101,8 @@ namespace Phantom
             GL.Color3(0.2f, 0.9f, 1.0f); GL.Vertex3(0.0f, 1.0f, 4.0f);
 
             GL.End();
+
+            stats.Draw(e);
 			
 			
 
