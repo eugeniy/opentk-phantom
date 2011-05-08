@@ -67,12 +67,12 @@ namespace Phantom
 			if (Keyboard[Key.F11])
                 WindowState = WindowState.Fullscreen;
 			
-			camera.Update();
+			camera.Update(e);
 
 			stats.Update(e);
-            stats["Position"] = camera.Position.ToString();
-            stats["Yaw"] = MathHelper.RadiansToDegrees(camera.Yaw).ToString();
-            stats["Pitch"] = MathHelper.RadiansToDegrees(camera.Pitch).ToString();
+            stats["Position"] = String.Format("({0:0.###}, {1:0.###}, {2:0.###})", camera.Position.X, camera.Position.Y, camera.Position.Z);
+            stats["Yaw"] = String.Format("{0:0.###}°", MathHelper.RadiansToDegrees(camera.Yaw));
+            stats["Pitch"] = String.Format("{0:0.###}°", MathHelper.RadiansToDegrees(camera.Pitch));
         }
 
         /// <summary>

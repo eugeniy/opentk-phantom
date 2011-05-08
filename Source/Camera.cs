@@ -101,7 +101,7 @@ namespace Phantom
         /// <summary>
         /// Allows the game component to update itself.
         /// </summary>
-        public void Update()
+        public void Update(FrameEventArgs e)
         {
             // Handle camera movement
             ProcessInput();
