@@ -7,16 +7,15 @@ namespace Phantom
 {
     public class Camera
     {
-        protected Vector3 m_position = new Vector3(0, 10, 30);
+        protected Vector3 m_position = new Vector3(0, 0, 30);
         protected Vector3 m_up = Vector3.UnitY;
         protected Vector3 m_direction;
 
-        protected float m_pitch = 0;
-        protected float m_pitchLimit = MathHelper.DegreesToRadians(80);
+        protected const float m_pitchLimit = 1.4f;
 
         protected const float m_speed = 0.25f;
-        protected const float m_mouseSpeedX = 0.25f;
-        protected const float m_mouseSpeedY = 0.15f;
+        protected const float m_mouseSpeedX = 0.0045f;
+        protected const float m_mouseSpeedY = 0.0025f;
 
         protected MouseState m_prevMouse;
 
@@ -83,17 +82,16 @@ namespace Phantom
 
             // Calculate yaw to look around with a mouse
             m_direction = Vector3.Transform(m_direction,
-                Matrix4.CreateFromAxisAngle(m_up, -MathHelper.DegreesToRadians(m_mouseSpeedX) * (mouse.X - m_prevMouse.X))
+                Matrix4.CreateFromAxisAngle(m_up, -m_mouseSpeedX * (mouse.X - m_prevMouse.X))
             );
 
             // Pitch is limited to m_pitchLimit
-            float angle = MathHelper.DegreesToRadians(m_mouseSpeedY) * (mouse.Y - m_prevMouse.Y);
-            if (Math.Abs(m_pitch + angle) < m_pitchLimit)
+            float angle = m_mouseSpeedY * (mouse.Y - m_prevMouse.Y);
+            if ((Pitch < m_pitchLimit || angle > 0) && (Pitch > -m_pitchLimit || angle < 0))
             {
                 m_direction = Vector3.Transform(m_direction,
                     Matrix4.CreateFromAxisAngle(Vector3.Cross(m_up, m_direction), angle)
                 );
-                m_pitch += angle;
             }
 
             m_prevMouse = mouse;
@@ -122,20 +120,27 @@ namespace Phantom
 
 
         /// <summary>
-        /// Position vector accessor.
+        /// Position vector.
         /// </summary>
         public Vector3 Position
         {
             get { return m_position; }
-            protected set { m_position = value; }
         }
 
         /// <summary>
-        /// Target vector accessor.
+        /// Yaw of the camera in radians.
         /// </summary>
-        public Vector3 Target
+        public double Yaw
         {
-            get { return m_position + m_direction; }
+            get { return Math.PI - Math.Atan2(m_direction.X, m_direction.Z); }
+        }
+
+        /// <summary>
+        /// Pitch of the camera in radians.
+        /// </summary>
+        public double Pitch
+        {
+            get { return Math.Asin(m_direction.Y); }
         }
 
         /// <summary>
